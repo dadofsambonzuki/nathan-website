@@ -1,0 +1,40 @@
+/* Wrapper to force vertical layout */
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Homepage content section */
+.home-content-section {
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+/* Homepage content styling to match theme */
+.home-content {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.home-content p {
+  margin-bottom: 1rem;
+}
+
+.home-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.home-content li {
+  margin: 0.5rem 0;
+}
+
+.home-content a {
+  font-weight: 500;
+}

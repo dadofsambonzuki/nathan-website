@@ -1,0 +1,8 @@
+{{/*
+  Custom head extensions for nathan-website
+*/}}
+
+{{/* Add robots meta tag if specified in front matter (for unlisted posts) */}}
+{{ with .Params.robots }}
+<meta name="robots" content="{{ . }}">
+{{ end }}

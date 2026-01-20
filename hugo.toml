@@ -15,21 +15,20 @@ style = "github-dark"
 unsafe = true
 
 [params]
-author = "Nathan Day"
 description = "Nathan Day's personal website"
 keywords = "blog,developer,personal,tinkerer"
-info = ["Tinkerer"]
+
 avatarURL = "images/avatar.jpg"
 dateFormat = "January 2, 2006"
 colorScheme = "auto"
 hideColorSchemeToggle = false
 maxSeeAlsoItems = 5
+customCSS = ["css/home-content.css"]
 
 [taxonomies]
 category = "categories"
 series = "series"
 tag = "tags"
-author = "authors"
 
 [[params.social]]
 name = "GitHub"
@@ -38,16 +37,16 @@ weight = 1
 url = "https://github.com/dadofsambonzuki/"
 
 [[params.social]]
+name = "X"
+icon = "fa-brands fa-x-twitter fa-2x"
+weight = 3
+url = "https://x.com/nathan_day/"
+
+[[params.social]]
 name = "LinkedIn"
 icon = "fa-brands fa-linkedin fa-2x"
 weight = 2
 url = "https://www.linkedin.com/in/nathanjamesday/"
-
-[[params.social]]
-name = "Twitter"
-icon = "fa-brands fa-x-twitter fa-2x"
-weight = 3
-url = "https://twitter.com/nathan_day/"
 
 [[params.social]]
 name = "Email"
@@ -56,10 +55,16 @@ weight = 4
 url = "mailto:nathan@day.ag"
 
 [[params.social]]
-name = "Nostr"
+name = "Lightning"
 icon = "fa-solid fa-bolt fa-2x"
 weight = 5
-url = "https://njump.me/nathan@day.ag"
+url = "lightning://nathan@day.ag"
+
+[[params.social]]
+name = "PGP Key"
+icon = "fa-solid fa-key fa-2x"
+weight = 6
+url = "/nathan@day.ag.asc"
 
 [[menu.main]]
 name = "About"
