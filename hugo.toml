@@ -70,3 +70,8 @@ url = "about/"
 name = "Blog"
 weight = 2
 url = "posts/"
+
+[[menu.main]]
+name = "Projects"
+weight = 3
+url = "projects/"
