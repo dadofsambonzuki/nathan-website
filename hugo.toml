@@ -55,6 +55,12 @@ icon = "fa-solid fa-envelope fa-2x"
 weight = 4
 url = "mailto:nathan@day.ag"
 
+[[params.social]]
+name = "Nostr"
+icon = "fa-solid fa-bolt fa-2x"
+weight = 5
+url = "https://njump.me/nathan@day.ag"
+
 [[menu.main]]
 name = "About"
 weight = 1
