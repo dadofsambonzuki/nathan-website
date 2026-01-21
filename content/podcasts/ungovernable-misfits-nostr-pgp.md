@@ -1,6 +1,6 @@
 +++
 title = "NOSTR is PGP for the masses"
-date = "2023-11-15"
+date = "2024-06-24"
 draft = false
 description = "Discussion about Nostr being PGP for the masses"
 tags = ["nostr", "pgp", "encryption", "privacy"]
