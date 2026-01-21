@@ -77,31 +77,26 @@ weight = 4
 url = "https://nosta.me/nprofile1qqsvfa085adgecmg84ffelcxx6zrn3ffu5jrc6cjtwng0zge3ptv43c82kf5d"
 
 [[menu.main]]
-name = "About"
-weight = 1
-url = "about/"
-
-[[menu.main]]
 name = "Blog"
-weight = 2
+weight = 4
 url = "posts/"
 
 [[menu.main]]
 name = "Projects"
-weight = 3
+weight = 1
 url = "projects/"
 
 [[menu.main]]
 name = "Presentations"
-weight = 4
+weight = 2
 url = "presentations/"
 
 [[menu.main]]
 name = "Podcasts"
-weight = 5
+weight = 3
 url = "podcasts/"
 
 [[menu.main]]
 name = "Tags"
-weight = 6
+weight = 5
 url = "tags/"
