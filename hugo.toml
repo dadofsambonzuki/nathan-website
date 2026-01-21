@@ -25,6 +25,10 @@ hideColorSchemeToggle = false
 maxSeeAlsoItems = 5
 customCSS = ["css/home-content.css", "css/nostr-social.css"]
 
+[params.umami]
+siteID = "98a4f246-3482-4055-a059-78ae57d9a1ca"
+scriptURL = "https://umami.btcmap.org/script.js"
+
 [taxonomies]
 category = "categories"
 series = "series"
