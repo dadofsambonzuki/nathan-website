@@ -1,0 +1,19 @@
+{{- if or .Page.Params.fountain_url .Page.Params.youtube_url .Page.Params.spotify_url .Page.Params.apple_podcasts_url .Page.Params.audio_url -}}
+<ul>
+  {{- if .Page.Params.fountain_url -}}
+  <li><i class="fa-solid fa-bolt" aria-hidden="true"></i> <a href="{{ .Page.Params.fountain_url }}" class="external-link" target="_blank" rel="noopener">Listen on Fountain</a></li>
+  {{- end -}}
+  {{- if .Page.Params.youtube_url -}}
+  <li><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a href="{{ .Page.Params.youtube_url }}" class="external-link" target="_blank" rel="noopener">Watch on YouTube</a></li>
+  {{- end -}}
+  {{- if .Page.Params.spotify_url -}}
+  <li><i class="fa-brands fa-spotify" aria-hidden="true"></i> <a href="{{ .Page.Params.spotify_url }}" class="external-link" target="_blank" rel="noopener">Listen on Spotify</a></li>
+  {{- end -}}
+  {{- if .Page.Params.apple_podcasts_url -}}
+  <li><i class="fa-brands fa-apple" aria-hidden="true"></i> <a href="{{ .Page.Params.apple_podcasts_url }}" class="external-link" target="_blank" rel="noopener">Listen on Apple Podcasts</a></li>
+  {{- end -}}
+  {{- if .Page.Params.audio_url -}}
+  <li><i class="fa-solid fa-podcast" aria-hidden="true"></i> <a href="{{ .Page.Params.audio_url }}" class="external-link" target="_blank" rel="noopener">Listen</a></li>
+  {{- end -}}
+</ul>
+{{- end -}}

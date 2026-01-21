@@ -86,3 +86,13 @@ url = "posts/"
 name = "Projects"
 weight = 3
 url = "projects/"
+
+[[menu.main]]
+name = "Presentations"
+weight = 4
+url = "presentations/"
+
+[[menu.main]]
+name = "Podcasts"
+weight = 5
+url = "podcasts/"

@@ -1,0 +1,13 @@
+{{- if or .Page.Params.slides_url .Page.Params.video_url .Page.Params.resources_url -}}
+<ul>
+  {{- if .Page.Params.slides_url -}}
+  <li><i class="fa-solid fa-display" aria-hidden="true"></i> <a href="{{ .Page.Params.slides_url }}" class="external-link" target="_blank" rel="noopener">View Slides</a></li>
+  {{- end -}}
+  {{- if .Page.Params.video_url -}}
+  <li><i class="fa-solid fa-video" aria-hidden="true"></i> <a href="{{ .Page.Params.video_url }}" class="external-link" target="_blank" rel="noopener">Watch Recording</a></li>
+  {{- end -}}
+  {{- if .Page.Params.resources_url -}}
+  <li><i class="fa-solid fa-link" aria-hidden="true"></i> <a href="{{ .Page.Params.resources_url }}" class="external-link" target="_blank" rel="noopener">Additional Resources</a></li>
+  {{- end -}}
+</ul>
+{{- end -}}
