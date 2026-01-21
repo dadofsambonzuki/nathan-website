@@ -1,6 +1,6 @@
 +++
 title = "EVERYDAY BITCOIN #1 - NATHAN DAY (BTCmap)"
-date = "2024-09-15"
+date = "2025-10-16"
 draft = false
 description = "Inaugural episode of Everyday Bitcoin podcast discussing BTC Map"
 tags = ["btcmap", "bitcoin", "everyday-use", "adoption"]

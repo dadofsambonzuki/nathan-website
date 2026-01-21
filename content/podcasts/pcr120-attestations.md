@@ -1,6 +1,6 @@
 +++
 title = "PCR120 - Attestations All the Way Down with Nathan Day"
-date = "2024-11-20"
+date = "2025-07-12"
 draft = false
 description = "Deep dive into Nostr attestations and web of trust"
 tags = ["nostr", "attestations", "wot", "trust"]

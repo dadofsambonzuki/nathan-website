@@ -1,6 +1,6 @@
 +++
 title = "PCR66 – Putting Nostr On The Map By Putting The Map On Nostr With Nathan Day"
-date = "2024-01-15"
+date = "2024-06-22"
 draft = false
 description = "Discussion about putting Nostr on the map and putting the map on Nostr"
 tags = ["nostr", "btcmap", "bitcoin"]

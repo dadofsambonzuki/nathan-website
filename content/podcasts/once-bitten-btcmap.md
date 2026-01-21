@@ -1,6 +1,6 @@
 +++
 title = "Accept Bitcoin? Put Yourself on the Map with BTCMap!"
-date = "2023-12-01"
+date = "2023-02-24"
 draft = false
 description = "How merchants can add themselves to BTC Map and increase Bitcoin adoption"
 tags = ["btcmap", "bitcoin", "merchants", "adoption"]

@@ -1,6 +1,6 @@
 +++
 title = "Building BTCMap and Overlanding #298"
-date = "2024-01-10"
+date = "2022-11-22"
 draft = false
 description = "Discussion about building BTC Map and overlanding adventures"
 tags = ["btcmap", "bitcoin", "overlanding", "travel"]
