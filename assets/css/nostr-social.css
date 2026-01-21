@@ -1,0 +1,43 @@
+/* Nostr SVG Social Icon Styles */
+
+/* Base styling for all SVG social icons */
+.centered .about ul li a img.social-svg {
+  height: 2em;
+  width: 2em;
+  line-height: 1;
+  vertical-align: -0.125em;
+  display: inline-block;
+  transition: filter 0.25s ease-in;
+}
+
+/* Light theme: black icon, Nostr purple on hover */
+.centered .about ul li a img.social-svg {
+  filter: brightness(0) saturate(100%);
+}
+
+.centered .about ul li a:hover img.social-svg,
+.centered .about ul li a:focus img.social-svg {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(55%) saturate(2492%) hue-rotate(272deg) brightness(91%) contrast(89%);
+}
+
+/* Dark theme: white icon, Nostr purple on hover */
+body.colorscheme-dark .centered .about ul li a img.social-svg {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+body.colorscheme-dark .centered .about ul li a:hover img.social-svg,
+body.colorscheme-dark .centered .about ul li a:focus img.social-svg {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(55%) saturate(2492%) hue-rotate(272deg) brightness(91%) contrast(89%);
+}
+
+/* Auto theme (respects system preference) */
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto .centered .about ul li a img.social-svg {
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+  
+  body.colorscheme-auto .centered .about ul li a:hover img.social-svg,
+  body.colorscheme-auto .centered .about ul li a:focus img.social-svg {
+    filter: brightness(0) saturate(100%) invert(17%) sepia(55%) saturate(2492%) hue-rotate(272deg) brightness(91%) contrast(89%);
+  }
+}

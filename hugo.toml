@@ -23,7 +23,7 @@ dateFormat = "January 2, 2006"
 colorScheme = "auto"
 hideColorSchemeToggle = false
 maxSeeAlsoItems = 5
-customCSS = ["css/home-content.css"]
+customCSS = ["css/home-content.css", "css/nostr-social.css"]
 
 [taxonomies]
 category = "categories"
@@ -51,20 +51,26 @@ url = "https://www.linkedin.com/in/nathanjamesday/"
 [[params.social]]
 name = "Email"
 icon = "fa-solid fa-envelope fa-2x"
-weight = 4
+weight = 5
 url = "mailto:nathan@day.ag"
 
 [[params.social]]
 name = "Lightning"
 icon = "fa-solid fa-bolt fa-2x"
-weight = 5
+weight = 6
 url = "lightning://nathan@day.ag"
 
 [[params.social]]
 name = "PGP Key"
 icon = "fa-solid fa-key fa-2x"
-weight = 6
+weight = 7
 url = "/nathan@day.ag.asc"
+
+[[params.social]]
+name = "Nostr"
+svg = "/images/nostr-icon.svg"
+weight = 4
+url = "https://nosta.me/nprofile1qqsvfa085adgecmg84ffelcxx6zrn3ffu5jrc6cjtwng0zge3ptv43c82kf5d"
 
 [[menu.main]]
 name = "About"
