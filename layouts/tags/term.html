@@ -1,0 +1,33 @@
+{{ define "title" }}
+  Tag: {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container list">
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="{{ .Permalink | safeURL }}">
+          Tag: {{ .Title }}
+        </a>
+      </h1>
+    </header>
+    {{ .Content }}
+    <ul>
+      {{ $pages := where .Pages "Section" "!=" "unlisted" }}
+      {{ $paginator := .Paginate $pages }}
+      {{ range $paginator.Pages }}
+      <li>
+        <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
+        {{- if eq .Type "podcasts" -}}
+          🎙️
+        {{- else if eq .Type "presentations" -}}
+          📊
+        {{- else if eq .Type "posts" -}}
+          📝
+        {{- end -}}
+        <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  </section>
+{{ end }}

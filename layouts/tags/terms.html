@@ -1,0 +1,36 @@
+{{ define "title" }}
+  Tags · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+<section class="container taxonomy">
+  <header>
+    <h1 class="title">
+      <a class="title-link" href="{{ .Permalink | safeURL }}">
+        Tags
+      </a>
+    </h1>
+  </header>
+  {{ .Content }}
+  <ul>
+    {{ range .Data.Terms.Alphabetical }}
+      {{ $name := .Name }}
+      {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+        {{ $count := 0 }}
+        {{ range .Pages }}
+          {{ if ne .Section "unlisted" }}
+            {{ $count = add $count 1 }}
+          {{ end }}
+        {{ end }}
+        {{ if gt $count 0 }}
+          <li>
+            <span class="taxonomy-element">
+              <a href="{{ .Permalink }}">{{ .Name }}</a>
+              <sup>{{ $count }}</sup>
+            </span>
+          </li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

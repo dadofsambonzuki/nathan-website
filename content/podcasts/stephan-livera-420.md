@@ -1,33 +1,28 @@
 +++
-title = "Example Podcast Episode"
-date = "2024-10-20"
+title = "SLP420 BTCMap - Mapping Bitcoin Merchants"
+date = "2023-08-10"
 draft = false
-description = "A brief description of what we discussed in this episode"
-tags = ["bitcoin", "freedom-tech"]
-podcast_name = "Podcast Show Name"
-episode_number = "42"
-duration = "45 minutes"
-audio_url = ""
-youtube_url = ""
-spotify_url = ""
-apple_podcasts_url = ""
+description = "Discussion about BTC Map and mapping Bitcoin merchant adoption globally"
+tags = ["btcmap", "bitcoin", "merchants", "adoption"]
+podcast_name = "Stephan Livera Podcast"
+episode_number = "420"
+hosts = "Stephan Livera"
 fountain_url = "https://fountain.fm/episode/K1qtJocgb9nIE6yZvgw7"
+featuredImage = "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/1211057/1211057-1564440708372-ffb7124f88945.jpg"
 +++
 
 ## Episode Summary
 
-My first podcast with Stephen Livera about BTC Map.
-
-## Topics Covered
-
-- Topic 1
-- Topic 2
-- Topic 3
+Episode 420 of the Stephan Livera Podcast where I discuss BTC Map, how it helps map Bitcoin merchants globally, and the importance of building circular economies.
 
 ## Listen
 
 {{< podcast-links >}}
 
-## Show Notes
+## Topics Covered
 
-Add detailed show notes, timestamps, and links mentioned in the episode here.
+- BTC Map project overview and mission
+- Mapping Bitcoin merchant adoption worldwide
+- Building Bitcoin circular economies
+- How merchants can add themselves to the map
+- Community-driven Bitcoin adoption
