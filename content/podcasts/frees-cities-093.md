@@ -4,16 +4,16 @@ date = "2024-08-30"
 draft = false
 description = "Discussion about overlanding, self-sovereign identity, and Bitcoin adoption"
 tags = ["overlanding", "identity", "bitcoin", "adoption", "travel"]
-podcast_name = "Bitcoin Audible"
+podcast_name = "Free Cities Podcast"
 episode_number = "93"
-hosts = "Timothy Allen (Guy Swann)"
+hosts = "Timothy Allen"
 fountain_url = "https://fountain.fm/episode/6PP2FGJ97ph1QpSfjHYG"
 featuredImage = "https://feeds.fountain.fm/0Mh804AKI3yaq86kDWTp/files/COVER_ART---DEFAULT---a11ca52f-3e70-413c-a8ed-44e72b949c5b.jpg"
 +++
 
 ## Episode Summary
 
-Episode 93 of Bitcoin Audible with Guy Swann (Timothy Allen) discussing overlanding adventures, self-sovereign identity, and Bitcoin adoption around the world.
+Episode 93 of the Free Cities Podcast with my friend Tim Allen where we discuss overlanding adventures, self-sovereign identity, and Bitcoin adoption around the world.
 
 ## Listen
 
