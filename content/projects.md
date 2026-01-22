@@ -18,6 +18,10 @@ My contributions to the project are mainly business, marketing, product and comm
 
 Notaries on Nostr if you will.
 
+# Bitfest
+
+I'm one of the co-founders of [Bitfest](https://bitfest.uk) and Nostrshire - a annual, grass-roots Bitcoin and Nostr conference in the UK. 
+
 # gamestr
 
 [gamestr](https://gamestr.io) is a fun side-project I have been building with my son, [Sambonzuki](https://nosta.me/sam@day.ag).

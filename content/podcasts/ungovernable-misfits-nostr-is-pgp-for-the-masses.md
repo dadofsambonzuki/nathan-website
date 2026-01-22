@@ -1,5 +1,5 @@
 +++
-title = "NOSTR is PGP for the masses"
+title = "Ungovernable Misfits: NOSTR is PGP for the Masses"
 date = "2024-06-24"
 draft = false
 description = "Discussion about Nostr being PGP for the masses"

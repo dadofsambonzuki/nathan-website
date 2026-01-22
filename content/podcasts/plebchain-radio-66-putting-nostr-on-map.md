@@ -1,5 +1,5 @@
 +++
-title = "PCR66 – Putting Nostr On The Map By Putting The Map On Nostr With Nathan Day"
+title = "Plebchain Radio (66): Putting Nostr On The Map By Putting The Map On Nostr"
 date = "2024-06-22"
 draft = false
 description = "Discussion about putting Nostr on the map and putting the map on Nostr"

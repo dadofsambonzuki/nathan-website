@@ -1,5 +1,5 @@
 +++
-title = "093 - Overlanding, Self Sovereign Identity & Bitcoin Adoption"
+title = "Free Cities Podcast (93): Overlanding, Self Sovereign Identity & Bitcoin Adoption"
 date = "2024-08-30"
 draft = false
 description = "Discussion about overlanding, self-sovereign identity, and Bitcoin adoption"
@@ -8,6 +8,7 @@ podcast_name = "Free Cities Podcast"
 episode_number = "93"
 hosts = "Timothy Allen"
 fountain_url = "https://fountain.fm/episode/6PP2FGJ97ph1QpSfjHYG"
+youtube_url= "https://www.youtube.com/watch?v=fHrZLhdW_ZQ"
 featuredImage = "https://feeds.fountain.fm/0Mh804AKI3yaq86kDWTp/files/COVER_ART---DEFAULT---a11ca52f-3e70-413c-a8ed-44e72b949c5b.jpg"
 +++
 

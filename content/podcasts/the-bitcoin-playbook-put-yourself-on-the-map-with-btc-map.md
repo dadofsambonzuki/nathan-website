@@ -1,10 +1,10 @@
 +++
-title = "Accept Bitcoin? Put Yourself on the Map with BTCMap!"
+title = "The Bitcoin Playbook: Accept Bitcoin? Put Yourself on the Map with BTC Map!"
 date = "2023-02-24"
 draft = false
 description = "How merchants can add themselves to BTC Map and increase Bitcoin adoption"
 tags = ["btcmap", "bitcoin", "merchants", "adoption"]
-podcast_name = "Once BITten!"
+podcast_name = "The Bitcoin Playbook"
 hosts = "Josh Friedeman"
 fountain_url = "https://fountain.fm/episode/9JhSB0jx9k19yewThxgy"
 featuredImage = "https://artwork.captivate.fm/5c6e21f0-2ff1-40cf-a8d8-adc4fd6e1ee9/k84AWA7qTZodvCGFsOExJk4r.jpg"

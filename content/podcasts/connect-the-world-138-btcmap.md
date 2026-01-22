@@ -1,5 +1,5 @@
 +++
-title = "BTCMAP.ORG | NATHAN DAY"
+title = "Connect The World (138): BTCMap.org"
 date = "2025-05-14"
 draft = false
 description = "Deep dive into BTC Map with Connect The World podcast"

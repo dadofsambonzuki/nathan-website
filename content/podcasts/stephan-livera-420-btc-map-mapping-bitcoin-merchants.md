@@ -1,5 +1,5 @@
 +++
-title = "SLP420 BTCMap - Mapping Bitcoin Merchants"
+title = "Stephan Livera (420): BTCMap - Mapping Bitcoin Merchants"
 date = "2022-10-06"
 draft = false
 description = "Discussion about BTC Map and mapping Bitcoin merchant adoption globally"

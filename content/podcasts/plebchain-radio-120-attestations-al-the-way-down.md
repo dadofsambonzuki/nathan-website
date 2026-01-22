@@ -1,5 +1,5 @@
 +++
-title = "PCR120 - Attestations All the Way Down with Nathan Day"
+title = "Plebchain Radio (120): Attestations All the Way Down"
 date = "2025-07-12"
 draft = false
 description = "Deep dive into Nostr attestations and web of trust"

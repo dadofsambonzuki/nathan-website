@@ -1,5 +1,5 @@
 +++
-title = "Building BTCMap and Overlanding #298"
+title = "Once Bitten (298): Building BTCMap and Overlanding"
 date = "2022-11-22"
 draft = false
 description = "Discussion about building BTC Map and overlanding adventures"
@@ -12,7 +12,7 @@ featuredImage = "https://feeds.fountain.fm/sokYhfsuGnDIQ10FLdqm/files/COVER_ART-
 
 ## Episode Summary
 
-Episode #298 with Daniel Prince where we discuss building BTC Map and my overlanding experiences.
+I sit down with my good friend Daniel Prince where we discuss building BTC Map and my overlanding experiences.
 
 ## Listen
 
