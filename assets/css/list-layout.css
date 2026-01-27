@@ -1,0 +1,91 @@
+/* Force list items to stack vertically */
+.list ul li {
+  display: block !important;
+}
+
+.list ul li > div {
+  display: block !important;
+  width: 100%;
+}
+
+.list ul li .date {
+  display: inline-block !important;
+}
+
+.list ul li .title {
+  display: inline !important;
+}
+
+/* Ensure flexbox containers work */
+.list ul li > div[style*="display: flex"] {
+  display: flex !important;
+}
+
+/* Ensure tags display as pills on list pages - match theme exactly */
+.list .tags {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.list .tags .tag {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background-color: #e0e0e0;
+  border-radius: 0.6rem;
+  line-height: 1.5em;
+}
+
+.list .tags .tag a {
+  color: #212121;
+  text-decoration: none;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .list .tags .tag {
+    background-color: #424242;
+  }
+  
+  .list .tags .tag a {
+    color: #dadada;
+  }
+}
+
+.list ul li > div {
+  display: block !important;
+  width: 100%;
+}
+
+.list ul li .date {
+  display: inline-block !important;
+  text-align: right;
+}
+
+.list ul li .title {
+  display: inline !important;
+}
+
+/* Ensure flexbox containers work properly */
+.list ul li > div[style*="display: flex"] {
+  display: flex !important;
+}
+
+/* Ensure tags display as pills on list pages */
+.list .tags {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.list .tags .tag {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background-color: var(--alt-bg-color);
+  border-radius: 0.6rem;
+  line-height: 1.5em;
+  margin-right: 0.5rem;
+}
+
+.list .tags .tag a {
+  color: var(--fg-color);
+  text-decoration: none;
+}

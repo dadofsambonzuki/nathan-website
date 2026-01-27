@@ -12,11 +12,7 @@ video_url = "https://www.youtube.com/watch?v=VO3pdA9P5As"
 
 ## Overview
 
-This is where you can write a detailed description of your presentation.
-
-- Main topic 1
-- Main topic 2
-- Main topic 3
+The first conference where BTC Map was presented. I cover why BTC Map will become _the_ map and why Bitcoiners should SPEDN their bitcoin.
 
 ## Resources
 

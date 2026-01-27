@@ -1,0 +1,67 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="{{ .Permalink | safeURL }}">
+              {{ .Title }}
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
+              </time>
+            </span>
+            {{ if .Params.reading_time }}
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              {{ .Params.reading_time }} min read
+            </span>
+            {{ end }}
+          </div>
+          {{ with .GetTerms "tags" }}{{ partial "taxonomy/tags.html" . }}{{ end }}
+        </div>
+      </header>
+
+      <div class="post-content">
+        {{ with .Params.featuredImage }}
+          <img src="{{ . }}" alt="{{ $.Title }}" style="max-width: 50%; height: auto; margin: 2rem 0;"/>
+        {{ end }}
+        {{ $.Content }}
+      </div>
+      
+      {{ if .Params.nostr_naddr }}
+      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color, #e0e0e0);">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <strong>View on Nostr:</strong>
+          
+          <a href="https://primal.net/e/{{ .Params.nostr_naddr }}" target="_blank" rel="noopener" title="View on Primal">
+            {{ `<i class="fa-solid fa-fire" aria-hidden="true"></i>` | safeHTML }} Primal
+          </a>
+          
+          <a href="https://nostrudel.ninja/#/n/{{ .Params.nostr_naddr }}" target="_blank" rel="noopener" title="View on Nostrudel">
+            {{ `<i class="fa-solid fa-compass" aria-hidden="true"></i>` | safeHTML }} Nostrudel
+          </a>
+          
+          <a href="https://snort.social/e/{{ .Params.nostr_naddr }}" target="_blank" rel="noopener" title="View on Snort">
+            {{ `<i class="fa-solid fa-bolt" aria-hidden="true"></i>` | safeHTML }} Snort
+          </a>
+          
+          <a href="https://coracle.social/{{ .Params.nostr_naddr }}" target="_blank" rel="noopener" title="View on Coracle">
+            {{ `<i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>` | safeHTML }} Coracle
+          </a>
+        </div>
+      </div>
+      {{ end }}
+    </article>
+  </section>
+  {{ partial "posts/math.html" . }}
+{{ end }}

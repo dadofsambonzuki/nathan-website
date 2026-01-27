@@ -1,36 +1,29 @@
 {{ define "title" }}
-  Tag: {{ .Title }} · {{ .Site.Title }}
+  {{- if eq .Kind "term" -}}
+    {{- i18n .Data.Plural 1 | title -}}
+    {{- print ": " -}}
+  {{- end -}}
+  {{- i18n (lower .Title) | default .Title | title }} · {{ .Site.Title -}}
 {{ end }}
 {{ define "content" }}
   <section class="container list">
     <header>
       <h1 class="title">
         <a class="title-link" href="{{ .Permalink | safeURL }}">
-          Tag: {{ .Title }}
+          {{- if eq .Kind "term" -}}
+            {{- i18n .Data.Plural 1 | title -}}
+            {{- print ": " -}}
+          {{- end -}}
+          {{- i18n (lower .Title) | default .Title | title -}}
         </a>
       </h1>
     </header>
     {{ .Content }}
     <ul>
-      {{ $pages := where .Pages "Section" "!=" "unlisted" }}
-      {{ $paginator := .Paginate $pages }}
-      {{ range $paginator.Pages }}
+      {{ range .Paginator.Pages }}
       <li>
         <div style="display: flex; align-items: flex-start;">
           <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
-          <span style="margin-right: 0.5rem;">
-            {{- if eq .Type "podcasts" -}}
-              🎙️
-            {{- else if eq .Type "presentations" -}}
-              📊
-            {{- else if eq .Type "notes" -}}
-              💭
-            {{- else if eq .Type "articles" -}}
-              📄
-            {{- else if eq .Type "posts" -}}
-              📝
-            {{- end -}}
-          </span>
           <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
         </div>
       </li>

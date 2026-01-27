@@ -23,11 +23,16 @@ dateFormat = "January 2, 2006"
 colorScheme = "auto"
 hideColorSchemeToggle = false
 maxSeeAlsoItems = 5
-customCSS = ["css/home-content.css", "css/nostr-social.css"]
+customCSS = ["css/home-content.css", "css/nostr-social.css", "css/list-layout.css"]
 
 [params.umami]
 siteID = "98a4f246-3482-4055-a059-78ae57d9a1ca"
 scriptURL = "https://umami.btcmap.org/script.js"
+
+[params.nostr]
+enabled = true
+enable_notes = true
+enable_articles = true
 
 [taxonomies]
 category = "categories"
@@ -77,11 +82,6 @@ weight = 4
 url = "https://nosta.me/nprofile1qqsvfa085adgecmg84ffelcxx6zrn3ffu5jrc6cjtwng0zge3ptv43c82kf5d"
 
 [[menu.main]]
-name = "Blog"
-weight = 4
-url = "posts/"
-
-[[menu.main]]
 name = "Projects"
 weight = 1
 url = "projects/"
@@ -97,6 +97,22 @@ weight = 3
 url = "podcasts/"
 
 [[menu.main]]
-name = "Tags"
+name = "Articles"
+weight = 4
+url = "articles/"
+
+[[menu.main]]
+name = "Notes"
 weight = 5
+url = "notes/"
+
+[[menu.main]]
+name = "Tags"
+weight = 6
 url = "tags/"
+
+# Disabled - Articles now provides blog functionality
+# [[menu.main]]
+# name = "Blog"
+# weight = 7
+# url = "posts/"
