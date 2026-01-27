@@ -12,7 +12,7 @@ video_url = "https://www.youtube.com/watch?v=4Qh7HIumiUo"
 
 ## Overview
 
-This is where you can write a detailed description of your presentation.
+My first visit to El Salvador and my first presentation at the excellent Adopting Bitcoin family of conferences. I cover why it is important to SPEDN your bitcoin and give a snapshot on current global adoption metrics.
 
 ## Resources
 

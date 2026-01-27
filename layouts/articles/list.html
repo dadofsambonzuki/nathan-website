@@ -1,0 +1,54 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container list">
+    <h1 class="title">
+      <a class="title-link" href="{{ .Permalink | safeURL }}">
+        {{ .Title }}
+      </a>
+    </h1>
+    
+    {{ .Content }}
+    
+    <ul>
+      {{ range .Pages.ByDate.Reverse }}
+        <li style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <span class="date" style="white-space: nowrap; margin-left: 2rem;">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
+          </div>
+          
+          {{ if .Params.reading_time }}
+          <div style="margin-top: 0.25rem;">
+            <span class="reading-time">
+              {{ `<i class="fa-solid fa-clock" aria-hidden="true"></i>` | safeHTML }}
+              {{ .Params.reading_time }} min read
+            </span>
+          </div>
+          {{ end }}
+          
+          {{ with .Params.featuredImage }}
+            <div style="margin-top: 0.5rem;">
+              <a href="{{ $.RelPermalink }}">
+                <img src="{{ . }}" alt="{{ $.Title }}" style="max-width: 100%; height: auto; border-radius: 4px;"/>
+              </a>
+            </div>
+          {{ end }}
+          
+          {{ with .Params.description }}
+            <div style="margin-top: 0.5rem; color: var(--secondary-text-color, #666); line-height: 1.6;">
+              {{ . }}
+            </div>
+          {{ end }}
+          
+          {{ with .GetTerms "tags" }}
+          <div style="margin-top: 0.5rem;">
+            {{ partial "taxonomy/tags.html" . }}
+          </div>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

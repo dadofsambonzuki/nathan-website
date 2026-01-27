@@ -15,3 +15,17 @@ Thumbs.db
 
 # Temporary files
 *.log
+
+# Nostr integration
+scripts/nostr_events/
+scripts/nostr_sync_state.json
+scripts/nostr_config.json
+content/notes/*.md
+!content/notes/_index.md
+content/articles/*.md
+!content/articles/_index.md
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc

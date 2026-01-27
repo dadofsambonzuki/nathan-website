@@ -1,0 +1,20 @@
+{
+  "npub": "npub1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2rl4qu",
+  "enable_notes": true,
+  "enable_articles": true,
+  "fallback_relays": [
+    "wss://nos.lol",
+    "wss://relay.damus.io",
+    "wss://nostr.wine",
+    "wss://relay.nostr.band"
+  ],
+  "notes_config": {
+    "exclude_replies": true,
+    "max_fetch_per_sync": 100,
+    "ignore_event_ids": []
+  },
+  "articles_config": {
+    "max_fetch_per_sync": 50,
+    "ignore_identifiers": []
+  }
+}

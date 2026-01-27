@@ -29,3 +29,11 @@ I'm one of the co-founders of [Bitfest](https://bitfest.uk) and Nostrshire - a a
 It's a videogame hub that enables games to be listed by makers and players to publish scores on Nostr. This creates global leaderboards with all of the goodies Nostr brings in terms of commenting and zapping. 
 
 We also created [blockstr](https://blockstr.io) as the first game on gamestr.
+
+# threadstr
+
+Another fun side-project, this time with my daughter - [Avadaver](https://nosta.me/nprofile1qqs8q3cjqhyfrmpaqkskcm8ekde30q7nnfwrvnn7y9ucyxxmxqeejqcvdjq54)!
+
+[threadstr](https://nosta.me/npub16mqxxfaqr6lx2mxj5vurfsr7nknzrcss79u809j4e495mcf4fmnskpvcur) is a Nostr-native t-shirt business selling Bitcoin and Nostr themed apparel.
+
+Check out our store on one of the decentralised market-places like [Plebian Market](https://plebeian.market/profile/d6c06327a01ebe656cd2a33834c07e9da621e210f178779655cd4b4de1354ee7) or [Shopstr](https://shopstr.market/marketplace/npub16mqxxfaqr6lx2mxj5vurfsr7nknzrcss79u809j4e495mcf4fmnskpvcur).

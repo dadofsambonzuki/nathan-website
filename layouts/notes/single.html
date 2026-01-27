@@ -1,0 +1,50 @@
+{{ define "title" }}
+  Note · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
+              </time>
+            </span>
+          </div>
+          {{ with .GetTerms "tags" }}{{ partial "taxonomy/tags.html" . }}{{ end }}
+        </div>
+      </header>
+
+      <div class="post-content">
+        {{ .Content }}
+      </div>
+      
+      {{ if .Params.nostr_nevent }}
+      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color, #e0e0e0);">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <strong>View on Nostr:</strong>
+          
+          <a href="https://primal.net/e/{{ .Params.nostr_nevent }}" target="_blank" rel="noopener" title="View on Primal">
+            {{ `<i class="fa-solid fa-fire" aria-hidden="true"></i>` | safeHTML }} Primal
+          </a>
+          
+          <a href="https://nostrudel.ninja/#/n/{{ .Params.nostr_nevent }}" target="_blank" rel="noopener" title="View on Nostrudel">
+            {{ `<i class="fa-solid fa-compass" aria-hidden="true"></i>` | safeHTML }} Nostrudel
+          </a>
+          
+          <a href="https://snort.social/e/{{ .Params.nostr_nevent }}" target="_blank" rel="noopener" title="View on Snort">
+            {{ `<i class="fa-solid fa-bolt" aria-hidden="true"></i>` | safeHTML }} Snort
+          </a>
+          
+          <a href="https://coracle.social/{{ .Params.nostr_nevent }}" target="_blank" rel="noopener" title="View on Coracle">
+            {{ `<i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>` | safeHTML }} Coracle
+          </a>
+        </div>
+      </div>
+      {{ end }}
+    </article>
+  </section>
+{{ end }}

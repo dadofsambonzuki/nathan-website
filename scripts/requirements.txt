@@ -1,0 +1,2 @@
+nostr-sdk>=0.31.0
+python-dateutil>=2.8.2

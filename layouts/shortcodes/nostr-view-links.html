@@ -1,0 +1,31 @@
+{{- $nevent := .Get "nevent" -}}
+{{- $naddr := .Get "naddr" -}}
+{{- $identifier := "" -}}
+
+{{- if $nevent -}}
+  {{- $identifier = $nevent -}}
+{{- else if $naddr -}}
+  {{- $identifier = $naddr -}}
+{{- end -}}
+
+{{- if $identifier -}}
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+  <strong>View on Nostr:</strong>
+  
+  <a href="https://primal.net/e/{{ $identifier }}" target="_blank" rel="noopener" title="View on Primal">
+    <i class="fa-solid fa-fire" aria-hidden="true"></i> Primal
+  </a>
+  
+  <a href="https://nostrudel.ninja/#/n/{{ $identifier }}" target="_blank" rel="noopener" title="View on Nostrudel">
+    <i class="fa-solid fa-compass" aria-hidden="true"></i> Nostrudel
+  </a>
+  
+  <a href="https://snort.social/e/{{ $identifier }}" target="_blank" rel="noopener" title="View on Snort">
+    <i class="fa-solid fa-bolt" aria-hidden="true"></i> Snort
+  </a>
+  
+  <a href="https://coracle.social/{{ $identifier }}" target="_blank" rel="noopener" title="View on Coracle">
+    <i class="fa-solid fa-circle-nodes" aria-hidden="true"></i> Coracle
+  </a>
+</div>
+{{- end -}}
