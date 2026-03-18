@@ -12,7 +12,7 @@ youtube_url = "https://www.youtube.com/watch?v=_R9lOV6rnnc"
 spotify_url = ""
 apple_podcasts_url = ""
 fountain_url = ""
-featuredImage = "https://i.ytimg.com/pl_c/PLQblFHM1fNaRAJkK-JqhEKpA6o5YNnGBf/studio_square_thumbnail.jpg?sqp=COiF2csG-oaymwEICKoDEPABSFqi85f_AwYIxtL0ygY=&rs=AOn4CLCo06GpZpHtAjNx0T7NPUgk_qTTUQ"
+featuredImage = "/images/roxom.png"
 +++
 
 ## Episode Summary
