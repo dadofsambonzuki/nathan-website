@@ -178,6 +178,48 @@ Content here...
    - `{{< podcast-links >}}` for podcasts
    - `{{< presentation-links >}}` for presentations
 
+## Deployment
+
+The website is hosted at `/var/www/nathan.day.ag` and deployed using `scripts/deploy.sh`.
+
+### Deploy Command
+
+Run the deploy script from the project root:
+
+```bash
+cd /home/ubuntu/nathan-website
+./scripts/deploy.sh
+```
+
+This script:
+1. Syncs new content from Nostr (notes and articles)
+2. Builds the Hugo site with `--minify`
+3. Rsyncs the `public/` directory to production
+
+### Manual Deployment Steps
+
+If you need to deploy manually:
+
+```bash
+# 1. Pull latest from GitHub
+git pull --rebase=false
+
+# 2. Sync Nostr content (optional - fetch_nostr_events.py also runs in deploy.sh)
+python3 scripts/fetch_nostr_events.py
+
+# 3. Build Hugo
+hugo --minify
+
+# 4. Deploy to production
+sudo rsync -av --delete public/ /var/www/nathan.day.ag/
+```
+
+### What Gets Deployed
+
+- The `public/` directory contains the built static site
+- It is NOT committed to git (gitignored)
+- Run `./scripts/deploy.sh` or build locally before deploying
+
 ## Development Commands
 
 ```bash
