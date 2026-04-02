@@ -1,31 +1,17 @@
 #!/bin/bash
 # Deploy script for nathan-website
-# Runs nostr sync, builds Hugo site, and copies to production
+# SSH to VPS, pulls latest, builds Hugo site, and copies to production
 
-set -e  # Exit on any error
+set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-PROD_DIR="/var/www/nathan.day.ag"
-
-cd "$PROJECT_DIR"
+VPS_HOST="vps"
 
 echo "=== Starting deployment ==="
 echo ""
 
-# Step 1: Run nostr sync
-echo ">>> Running nostr sync..."
-python3 scripts/fetch_nostr_events.py
-echo ""
-
-# Step 2: Build Hugo site
-echo ">>> Building Hugo site..."
-hugo --minify
-echo ""
-
-# Step 3: Copy to production
-echo ">>> Copying to production ($PROD_DIR)..."
-sudo rsync -av --delete public/ "$PROD_DIR/"
+# SSH to VPS and run deployment
+echo ">>> Deploying to VPS ($VPS_HOST)..."
+ssh "$VPS_HOST" "cd /home/ubuntu/nathan-website && git pull --rebase=false && python3 scripts/fetch_nostr_events.py && hugo --minify && sudo rsync -av --delete public/ /var/www/nathan.day.ag/"
 echo ""
 
 echo "=== Deployment complete ==="
