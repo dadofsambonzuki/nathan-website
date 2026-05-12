@@ -1,5 +1,5 @@
 +++
-title = "Fedi Community Chat (Ep. 10): Find Merchants That Accept Bitcoin with Nathan Day"
+title = "Fedi Community Chat (10): Find Merchants That Accept Bitcoin with Nathan Day"
 date = "2026-05-08"
 draft = false
 description = "I sit down with Frank Corva at Fedi where we discuss their BTC Map mini app and how it's used within Fedi communities across the planet."
