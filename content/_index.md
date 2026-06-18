@@ -1,5 +1,6 @@
 +++
 title = "Home"
+description = "Personal website of Nathan Day — tinkerer, builder, Bitcoiner"
 +++
 
 Hey!👋
