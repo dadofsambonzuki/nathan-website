@@ -20,9 +20,9 @@ My contributions to the project are mainly business, marketing, product and comm
 
 Notaries on Nostr if you will.
 
-## Bitfest
+## Bitfest & Nostrshire
 
-I'm one of the co-founders of [Bitfest](https://bitfest.uk) and Nostrshire - a annual, grass-roots Bitcoin and Nostr conference in the UK. 
+I'm one of the co-founders of [Bitfest](https://bitfest.uk) and [Nostrshire](https://nostrshire.org) - a annual, grass-roots Bitcoin and Nostr conference in the UK. 
 
 ## gamestr
 
