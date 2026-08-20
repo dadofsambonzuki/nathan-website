@@ -4,7 +4,7 @@ date = "2026-01-19"
 description = "Open-source projects I'm involved in"
 +++
 
-Open-source projects I'm involved in.
+Open-source projects I'm involved in ...
 
 ## BTC Map
 
