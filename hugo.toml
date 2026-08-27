@@ -30,8 +30,8 @@ maxSeeAlsoItems = 5
 customCSS = ["css/home-content.css", "css/nostr-social.css", "css/list-layout.css"]
 
 [params.umami]
-siteID = "98a4f246-3482-4055-a059-78ae57d9a1ca"
-scriptURL = "https://umami.btcmap.org/script.js"
+siteID = "731c6188-dd6c-41af-874a-0cba80989d0c"
+scriptURL = "https://analytics.day.ag/script.js"
 
 [params.nostr]
 enabled = true
