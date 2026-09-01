@@ -12,7 +12,7 @@ video_url = "https://www.youtube.com/watch?v=VKZWnuo4pow"
 
 ## Overview
 
-Presentation at [Mempool Dev Day London](https://mempool.space), hosted by [Antidote](https://antidote.so) and sponsored by [Mempool.space](https://mempool.space). Topics covered included [BTC Map](https://btcmap.org), [Bitfest](https://bitfest.io), [Gamestr](https://gamestr.io) and [Attestr](https://attestr.xyz).
+Presentation at Mempool Dev Day London, hosted by [Antidote](https://antidotebtc.com) and sponsored by [Mempool.space](https://mempool.space). Topics covered included [BTC Map](https://btcmap.org), [Bitfest](https://bitfest.uk), [Gamestr](https://gamestr.io) and [Attestr](https://attestr.xyz).
 
 ## Resources
 
