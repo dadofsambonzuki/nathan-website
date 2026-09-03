@@ -14,5 +14,12 @@ jobs:
     runs-on: [self-hosted, nathan-website]
     timeout-minutes: 10
     steps:
+      - name: Select the production branch
+        run: |
+          if ! git -C /home/ubuntu/nathan-website diff --quiet || ! git -C /home/ubuntu/nathan-website diff --cached --quiet; then
+            git -C /home/ubuntu/nathan-website stash push --message "auto-stash before switching to master $(date +%Y%m%d-%H%M%S)"
+          fi
+          git -C /home/ubuntu/nathan-website fetch origin master
+          git -C /home/ubuntu/nathan-website switch master
       - name: Run deploy script
         run: /home/ubuntu/nathan-website/scripts/deploy.sh
