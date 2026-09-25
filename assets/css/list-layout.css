@@ -1,25 +1,34 @@
 /* List pages (presentations, podcasts, posts, notes).
-   The title leads and the date sits underneath it, quieter — the date is
-   context, not the thing being scanned for. */
+   Each row is a date plus a title. On wide screens they share a line; on
+   narrow ones the date sits above the title, because a flex row with no
+   wrap squeezes the title into a ragged column at phone widths. */
 .list ul li > div {
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.list ul li .title {
-  order: 1;
-  flex: 0 0 auto;
-  font-size: 1.15rem;
-  font-weight: 600;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
 }
 
 .list ul li .date {
-  order: 2;
   flex: 0 0 auto;
-  font-size: 0.85rem;
-  text-align: left;
-  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.list ul li .title {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 600px) {
+  .list ul li > div {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .list ul li .date {
+    text-align: left;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
 }
 
 /* Tags as pills, matching the theme's own tag styling. */
