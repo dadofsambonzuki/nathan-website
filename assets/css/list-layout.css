@@ -1,27 +1,28 @@
-/* Force list items to stack vertically */
-.list ul li {
-  display: block !important;
-}
-
+/* List pages (presentations, podcasts, posts, notes).
+   The title leads and the date sits underneath it, quieter — the date is
+   context, not the thing being scanned for. */
 .list ul li > div {
-  display: block !important;
-  width: 100%;
-}
-
-.list ul li .date {
-  display: inline-block !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .list ul li .title {
-  display: inline !important;
+  order: 1;
+  flex: 0 0 auto;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 
-/* Ensure flexbox containers work */
-.list ul li > div[style*="display: flex"] {
-  display: flex !important;
+.list ul li .date {
+  order: 2;
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  text-align: left;
+  opacity: 0.7;
 }
 
-/* Ensure tags display as pills on list pages - match theme exactly */
+/* Tags as pills, matching the theme's own tag styling. */
 .list .tags {
   display: block;
   margin-top: 0.5rem;
@@ -40,52 +41,12 @@
   text-decoration: none;
 }
 
-/* Dark mode */
 @media (prefers-color-scheme: dark) {
   .list .tags .tag {
     background-color: #424242;
   }
-  
+
   .list .tags .tag a {
     color: #dadada;
   }
-}
-
-.list ul li > div {
-  display: block !important;
-  width: 100%;
-}
-
-.list ul li .date {
-  display: inline-block !important;
-  text-align: right;
-}
-
-.list ul li .title {
-  display: inline !important;
-}
-
-/* Ensure flexbox containers work properly */
-.list ul li > div[style*="display: flex"] {
-  display: flex !important;
-}
-
-/* Ensure tags display as pills on list pages */
-.list .tags {
-  display: block;
-  margin-top: 0.5rem;
-}
-
-.list .tags .tag {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  background-color: var(--alt-bg-color);
-  border-radius: 0.6rem;
-  line-height: 1.5em;
-  margin-right: 0.5rem;
-}
-
-.list .tags .tag a {
-  color: var(--fg-color);
-  text-decoration: none;
 }
