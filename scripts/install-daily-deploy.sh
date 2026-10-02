@@ -7,6 +7,10 @@
 # HOME, SSH keys and permissions. deploy.sh's sudo rsync works because the
 # runner user has passwordless sudo (that is already how a push deploy works).
 #
+# The command is wrapped in flock so a cron run cannot collide with a
+# push-triggered deploy on the same working tree and rsync target: a second run
+# waits up to 15 minutes for the lock.
+#
 # Usage:  scripts/install-daily-deploy.sh
 #         SCHEDULE="*/5 * * * *" scripts/install-daily-deploy.sh   # for testing
 #
@@ -15,6 +19,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CRON_FILE="/etc/cron.d/nathan-website"
 LOG_FILE="/var/log/nathan-website-deploy.log"
+LOCK_FILE="/var/lock/nathan-website-deploy.lock"
 SCHEDULE="${SCHEDULE:-17 6 * * *}"
 
 if [ "$(id -u)" -eq 0 ]; then
@@ -38,7 +43,7 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOME=$HOME_DIR
 MAILTO=""
-$SCHEDULE $DEPLOY_USER $REPO_DIR/scripts/deploy.sh >> $LOG_FILE 2>&1
+$SCHEDULE $DEPLOY_USER flock -w 900 $LOCK_FILE $REPO_DIR/scripts/deploy.sh >> $LOG_FILE 2>&1
 EOF
 
 sudo chmod 0644 "$CRON_FILE"
@@ -53,7 +58,6 @@ echo "--- $CRON_FILE ---"
 cat "$CRON_FILE"
 echo "--- cron service ---"
 systemctl is-active cron 2>/dev/null || systemctl is-active crond 2>/dev/null || echo "no cron service found"
-echo "--- next scheduled runs ---"
-sudo systemctl list-timers 2>/dev/null | head -3 || true
-echo ""
-echo "Logs: $LOG_FILE"
+echo "--- deploy log ---"
+ls -l "$LOG_FILE"
+echo "Completed deploys so far: $(grep -c 'Deployment complete' "$LOG_FILE" 2>/dev/null || true)"
