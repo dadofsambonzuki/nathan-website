@@ -3,6 +3,11 @@ name: Deploy to Production
 on:
   push:
     branches: [master]
+  # Pull the Nostr notes and articles daily even when nothing is pushed: the
+  # sync, the mention resolution and the rebuild all live in deploy.sh, so a
+  # scheduled run picks up new posts and redeploys. Cron is UTC.
+  schedule:
+    - cron: "17 6 * * *"
   workflow_dispatch:
 
 concurrency:
