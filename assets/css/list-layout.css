@@ -1,27 +1,37 @@
-/* Force list items to stack vertically */
-.list ul li {
-  display: block !important;
-}
-
+/* List pages (presentations, podcasts, posts, notes).
+   Each row is a date plus a title. On wide screens they share a line; on
+   narrow ones the date sits above the title, because a flex row with no
+   wrap squeezes the title into a ragged column at phone widths. */
 .list ul li > div {
-  display: block !important;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
 }
 
 .list ul li .date {
-  display: inline-block !important;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .list ul li .title {
-  display: inline !important;
+  flex: 1 1 auto;
 }
 
-/* Ensure flexbox containers work */
-.list ul li > div[style*="display: flex"] {
-  display: flex !important;
+@media (max-width: 600px) {
+  .list ul li > div {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .list ul li .date {
+    text-align: left;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
 }
 
-/* Ensure tags display as pills on list pages - match theme exactly */
+/* Tags as pills, matching the theme's own tag styling. */
 .list .tags {
   display: block;
   margin-top: 0.5rem;
@@ -40,52 +50,12 @@
   text-decoration: none;
 }
 
-/* Dark mode */
 @media (prefers-color-scheme: dark) {
   .list .tags .tag {
     background-color: #424242;
   }
-  
+
   .list .tags .tag a {
     color: #dadada;
   }
-}
-
-.list ul li > div {
-  display: block !important;
-  width: 100%;
-}
-
-.list ul li .date {
-  display: inline-block !important;
-  text-align: right;
-}
-
-.list ul li .title {
-  display: inline !important;
-}
-
-/* Ensure flexbox containers work properly */
-.list ul li > div[style*="display: flex"] {
-  display: flex !important;
-}
-
-/* Ensure tags display as pills on list pages */
-.list .tags {
-  display: block;
-  margin-top: 0.5rem;
-}
-
-.list .tags .tag {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  background-color: var(--alt-bg-color);
-  border-radius: 0.6rem;
-  line-height: 1.5em;
-  margin-right: 0.5rem;
-}
-
-.list .tags .tag a {
-  color: var(--fg-color);
-  text-decoration: none;
 }
