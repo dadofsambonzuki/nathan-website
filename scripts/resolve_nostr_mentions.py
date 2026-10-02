@@ -24,7 +24,7 @@ import sys
 import time
 from datetime import timedelta
 from pathlib import Path
-from typing import Dict, Iterable, List, Set
+from typing import Dict, Iterable, List, Optional, Set
 
 try:
     from nostr_sdk import Client, Filter, Kind, Nip19, PublicKey, RelayUrl
@@ -34,9 +34,10 @@ except ImportError:
 
 
 # bech32's charset excludes 1, b, i and o, so an identifier can never contain a
-# second "1" after its prefix separator.
+# second "1" after its prefix separator. All five kinds are collected: the
+# profiles are looked up, the events and addresses are only canonicalised.
 IDENTIFIER_RE = re.compile(
-    r"(?<![0-9a-z])((?:npub|nprofile)1[023456789acdefghjklmnpqrstuvwxyz]{20,})"
+    r"(?<![0-9a-z])((?:npub|nprofile|note|nevent|naddr)1[023456789acdefghjklmnpqrstuvwxyz]{20,})"
 )
 CONTENT_DIRS = ("content/notes", "content/articles")
 CACHE_PATH = Path("data/nostr_profiles.json")
@@ -68,14 +69,30 @@ def collect_identifiers(content_dirs: Iterable[str]) -> Dict[str, Set[str]]:
     return found
 
 
-def pubkey_of(identifier: str) -> str:
-    """Decode an npub or nprofile to a hex pubkey."""
+def describe(identifier: str) -> Dict[str, Optional[str]]:
+    """Decode an identifier into its pubkey (profiles only) and its canonical
+    bech32 form.
+
+    A mention is often written as an nprofile or an nevent carrying relay
+    hints, which nobody wants to read or to see in a URL. The canonical form
+    is the plain npub of the key, or the note1 of the event id, and that is
+    what the templates label and link with when no profile name is known.
+    """
     decoded = Nip19.from_bech32(identifier).as_enum()
     if decoded.is_pubkey():
-        return decoded.npub.to_hex()
+        key = decoded.npub
+        return {"pubkey": key.to_hex(), "short": key.to_bech32()}
     if decoded.is_profile():
-        return decoded.nprofile.public_key().to_hex()
-    raise ValueError("not an npub or nprofile")
+        key = decoded.nprofile.public_key()
+        return {"pubkey": key.to_hex(), "short": key.to_bech32()}
+    if decoded.is_note():
+        # The NOTE variant exposes event_id directly; EVENT wraps it.
+        return {"pubkey": None, "short": decoded.event_id.to_bech32()}
+    if decoded.is_event():
+        return {"pubkey": None, "short": decoded.event.event_id().to_bech32()}
+    if decoded.is_addr():
+        return {"pubkey": None, "short": decoded.coordinate.to_bech32()}
+    raise ValueError("unsupported identifier")
 
 
 def load_cache() -> Dict[str, dict]:
@@ -160,15 +177,24 @@ async def fetch_events(client: "Client", author_filter: "Filter", timeout: int) 
     return events if isinstance(events, list) else events.to_vec()
 
 
-def cache_entry(identifier: str, pubkey: str, profiles: Dict[str, dict]) -> dict:
-    entry: dict = {"pubkey": pubkey, "checked": int(time.time())}
-    profile = profiles.get(pubkey)
-    if profile:
-        metadata = profile["metadata"]
-        for field in ("name", "display_name", "nip05", "picture"):
-            value = metadata.get(field)
-            if isinstance(value, str) and value.strip():
-                entry[field] = value.strip()
+def cache_entry(description: Dict[str, Optional[str]], profiles: Dict[str, dict]) -> dict:
+    """One cache entry: the canonical identifier, the pubkey when it is a
+    profile, and the kind 0 fields when the relays had them."""
+    entry: dict = {}
+    if description.get("short"):
+        entry["short"] = description["short"]
+
+    pubkey = description.get("pubkey")
+    if pubkey:
+        entry["pubkey"] = pubkey
+        entry["checked"] = int(time.time())
+        profile = profiles.get(pubkey)
+        if profile:
+            metadata = profile["metadata"]
+            for field in ("name", "display_name", "nip05", "picture"):
+                value = metadata.get(field)
+                if isinstance(value, str) and value.strip():
+                    entry[field] = value.strip()
     return entry
 
 
@@ -176,12 +202,22 @@ def needs_lookup(identifier: str, cache: Dict[str, dict], recheck_hours: int) ->
     """True when an identifier is new, or is named-less and stale.
 
     Profiles without kind 0 metadata on the relays we tried are kept and
-    retried later rather than refetched on every build.
+    retried later rather than refetched on every build; events and addresses
+    have nothing to look up, so they only want a canonical form.
     """
     entry = cache.get(identifier)
     if entry is None:
         return True
-    if entry.get("invalid") or entry.get("name") or entry.get("display_name"):
+    if entry.get("invalid"):
+        return False
+    if not entry.get("short"):
+        # Written before the canonical form was recorded, or cached as a
+        # nameless profile by an older run: rebuild the entry once.
+        return True
+    if not entry.get("pubkey"):
+        # Events and addresses have no name to look up, only the short form.
+        return False
+    if entry.get("name") or entry.get("display_name"):
         return False
     checked = entry.get("checked")
     if not isinstance(checked, int):
@@ -209,15 +245,22 @@ def main() -> int:
     resolved: Dict[str, dict] = {}
     if missing:
         pubkeys: Dict[str, List[str]] = {}
+        descriptions: Dict[str, Dict[str, Optional[str]]] = {}
         for identifier in missing:
             try:
-                pubkeys.setdefault(pubkey_of(identifier), []).append(identifier)
+                description = describe(identifier)
             except Exception as error:  # noqa: BLE001 - a malformed mention must not fail the run
                 # Mentions are sometimes pasted truncated, so they cannot be
                 # decoded or linked; record that so the templates leave them be.
                 resolved[identifier] = {"invalid": True}
                 log(f"could not decode {identifier[:20]}…: {error}", args.verbose)
+                continue
+            descriptions[identifier] = description
+            pubkey = description.get("pubkey")
+            if pubkey:
+                pubkeys.setdefault(pubkey, []).append(identifier)
 
+        profiles: Dict[str, dict] = {}
         if pubkeys:
             try:
                 import asyncio
@@ -225,11 +268,9 @@ def main() -> int:
                 profiles = asyncio.run(fetch_profiles(list(pubkeys), load_relays(), args.verbose, args.timeout))
             except Exception as error:  # noqa: BLE001 - offline build keeps the old cache
                 print(f"resolve_nostr_mentions: relay lookup failed ({error}); keeping cached names")
-                profiles = {}
 
-            for pubkey, wanted in pubkeys.items():
-                for identifier in wanted:
-                    resolved[identifier] = cache_entry(identifier, pubkey, profiles)
+        for identifier, description in descriptions.items():
+            resolved[identifier] = cache_entry(description, profiles)
 
     named = sum(1 for entry in list(cache.values()) + list(resolved.values()) if entry.get("name") or entry.get("display_name"))
     log(f"{named} of {len(identifiers)} mentions have a name", args.verbose)
@@ -239,7 +280,7 @@ def main() -> int:
         return 0
 
     merged = {**cache, **resolved}
-    if len(merged) == len(cache):
+    if merged == cache:
         print(f"resolve_nostr_mentions: cache already covers all {len(cache)} mentions")
         return 0
 

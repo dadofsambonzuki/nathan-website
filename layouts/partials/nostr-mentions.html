@@ -47,28 +47,45 @@
   {{- $content = replace $content $id $cloak -}}
 {{- end -}}
 
-{{/* Profiles and events in separate passes: the bech32 charset excludes 1, b,
-     i and o, so one prefix can never appear inside the other's payload. */}}
-{{- $content = $content | replaceRE (printf `(?:nostr:)?((?:npub|nprofile)1[023456789acdefghjklmnpqrstuvwxyz]{20,})`) `<a class="nostr-mention" href="https://nosta.me/$1" target="_blank" rel="noopener" title="$1">$1</a>` -}}
-{{- $content = $content | replaceRE (printf `(?:nostr:)?((?:note|nevent|naddr)1[023456789acdefghjklmnpqrstuvwxyz]{20,})`) `<a class="nostr-mention" href="https://jumble.social/$1" target="_blank" rel="noopener" title="$1">$1</a>` -}}
-
-{{/* Swap each identifier for the resolved name, or a shortened form. The
-     link text is the only place the identifier stands between > and <, so
-     this cannot touch the href or the title attribute. */}}
-{{- range $id := findRE $pattern $content -}}
+{{/* Each mention becomes one link: the profile name when the resolver found
+     one, otherwise the canonical short form from the cache — a plain npub for
+     a profile, a note1 for an event — so a nameless mention still reads as a
+     short identifier rather than a 200-character nprofile or nevent. */}}
+{{- range $index, $id := (findRE $pattern $content | uniq) -}}
+  {{- $entry := index $profiles $id -}}
+  {{- $target := $id -}}
+  {{- with $entry -}}
+    {{- with .short -}}
+      {{- $target = . -}}
+    {{- end -}}
+  {{- end -}}
   {{- $label := "" -}}
-  {{- with index $profiles $id -}}
+  {{- with $entry -}}
     {{- $label = or .display_name .name .nip05 "" -}}
   {{- end -}}
   {{- if not $label -}}
-    {{- $label = printf "%s…%s" (substr $id 0 10) (substr $id (sub (len $id) 4)) -}}
+    {{- $label = printf "%s…%s" (substr $target 0 10) (substr $target (sub (len $target) 4)) -}}
   {{- end -}}
-  {{- $content = replace $content (printf ">%s<" $id) (printf ">%s<" ($label | htmlEscape)) -}}
+  {{- $host := "https://jumble.social/" -}}
+  {{- if or (hasPrefix $target "npub") (hasPrefix $target "nprofile") -}}
+    {{- $host = "https://nosta.me/" -}}
+  {{- end -}}
+  {{- $anchor := printf `<a class="nostr-mention" href="%s%s" target="_blank" rel="noopener" title="%s">%s</a>` $host $target $id ($label | htmlEscape) -}}
+  {{/* Cloak first, so replacing the bare identifier cannot reach inside the
+       anchor just inserted (the href and title both carry it). */}}
+  {{- $cloak := printf "@@mention%d@@" $index -}}
+  {{- $content = replace $content (printf "nostr:%s" $id) $cloak -}}
+  {{- $content = replace $content $id $cloak -}}
+  {{- $content = replace $content $cloak $anchor -}}
 {{- end -}}
 
-{{/* Put the undecodable mentions back as plain text, without the prefix. */}}
+{{/* Put the undecodable mentions back as plain text — no link, since the
+     identifier is malformed and would 404 — shortened to the same shape as a
+     resolved fallback so a pasted-and-truncated id does not sprawl across the
+     line. */}}
 {{- range $index, $id := $invalid -}}
-  {{- $content = replace $content (printf "@@nostr%d@@" $index) $id -}}
+  {{- $short := printf "%s…%s" (substr $id 0 10) (substr $id (sub (len $id) 4)) -}}
+  {{- $content = replace $content (printf "@@nostr%d@@" $index) $short -}}
 {{- end -}}
 
 {{- $content | safeHTML -}}
