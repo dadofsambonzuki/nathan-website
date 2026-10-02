@@ -1,32 +1,68 @@
-/* List pages (presentations, podcasts, posts, notes).
-   Each row is a date plus a title. On wide screens they share a line; on
-   narrow ones the date sits above the title, because a flex row with no
-   wrap squeezes the title into a ragged column at phone widths. */
-.list ul li > div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.75rem;
+/* List pages (presentations, podcasts, articles, posts, notes).
+   The theme renders these rows as a flex line with a fixed 20rem date
+   column, which squeezes a long title into a ragged column on phones.
+   Each row here is a date plus a title that share a line when there is
+   room and wrap onto separate lines when there isn't. Note the site sets
+   html { font-size: 62.5% }, so 1rem is 10px. */
+
+/* The theme makes list items flex rows above 768px, which turns the row
+   wrapper into a shrink-to-fit item and breaks the layout. */
+.list ul li {
+  display: block !important;
 }
 
+.list ul li .list-row,
+.list ul li:not(:has(.list-row)):has(> .date) {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 2rem;
+  width: 100%;
+}
+
+/* Undo the theme's fixed-width, right-aligned date column. */
 .list ul li .date {
   flex: 0 0 auto;
+  width: auto;
+  margin-right: 0;
+  margin-left: 0;
   white-space: nowrap;
 }
 
 .list ul li .title {
   flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
-@media (max-width: 600px) {
-  .list ul li > div {
+/* Content-type emoji on tag pages, kept next to the date. */
+.list ul li .list-type {
+  flex: 0 0 auto;
+  margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .list ul li .list-row,
+  .list ul li:not(:has(.list-row)):has(> .date) {
     flex-direction: column;
-    gap: 0.15rem;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  /* Rows that carry a type emoji: date and emoji on one line, title below. */
+  .list ul li .list-row:has(.list-type) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .list ul li .list-row:has(.list-type) .title {
+    flex: 1 1 100%;
   }
 
   .list ul li .date {
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 1.5rem;
     opacity: 0.75;
   }
 }

@@ -16,9 +16,9 @@
       {{ $paginator := .Paginate $pages }}
       {{ range $paginator.Pages }}
       <li>
-        <div style="display: flex; align-items: flex-start;">
+        <div class="list-row">
           <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
-          <span style="margin-right: 0.5rem;">
+          <span class="list-type">
             {{- if eq .Type "podcasts" -}}
               🎙️
             {{- else if eq .Type "presentations" -}}
