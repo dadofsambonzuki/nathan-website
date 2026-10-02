@@ -3,20 +3,22 @@
 {{ end }}
 {{ define "content" }}
   <section class="container list">
-    <h1 class="title">
-      <a class="title-link" href="{{ .Permalink | safeURL }}">
-        {{ .Title }}
-      </a>
-    </h1>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="{{ .Permalink | safeURL }}">
+          {{ .Title }}
+        </a>
+      </h1>
+    </header>
     
     {{ .Content }}
     
     <ul>
       {{ range .Pages.ByDate.Reverse }}
-        <li style="margin-bottom: 1.5rem;">
+        <li>
           <div class="list-row">
-            <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
             <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
+            <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
           </div>
           
           {{ if .Params.reading_time }}

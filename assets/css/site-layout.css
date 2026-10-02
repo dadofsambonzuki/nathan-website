@@ -1,0 +1,29 @@
+/* Whole-site layout consistency.
+   The theme's nav sits in normal flow, so a page with a scrollbar is 15px
+   narrower than one without and the menu jumps sideways when navigating
+   between short and long pages. Reserving the gutter keeps it still. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* The theme only sizes and spaces a page's h1 when it sits inside a
+   <header> (.content header h1). Every section template uses that header,
+   and this repeats the rule so an h1 in a section without one still lands
+   in the same place. */
+.content .container > header {
+  margin-top: 6.4rem;
+  margin-bottom: 3.2rem;
+}
+
+.content .container > header h1 {
+  font-size: 4.2rem;
+  line-height: 4.6rem;
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .content .container > header h1 {
+    font-size: 4rem;
+    line-height: 4.4rem;
+  }
+}

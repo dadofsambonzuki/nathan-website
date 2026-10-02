@@ -27,7 +27,7 @@ dateFormat = "January 2, 2006"
 colorScheme = "auto"
 hideColorSchemeToggle = false
 maxSeeAlsoItems = 5
-customCSS = ["css/home-content.css", "css/nostr-social.css", "css/list-layout.css"]
+customCSS = ["css/home-content.css", "css/nostr-social.css", "css/list-layout.css", "css/site-layout.css"]
 
 [params.umami]
 siteID = "731c6188-dd6c-41af-874a-0cba80989d0c"
