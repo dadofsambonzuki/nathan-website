@@ -1,0 +1,38 @@
+name: Install daily deploy cron
+
+# Temporary: installs the VPS cron job with a five-minute schedule, waits for
+# cron to fire a real deploy, then reinstalls it on the daily schedule.
+on:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: [self-hosted, nathan-website]
+    timeout-minutes: 20
+    steps:
+      - name: Install with a test schedule
+        run: SCHEDULE="*/5 * * * *" /home/ubuntu/nathan-website/scripts/install-daily-deploy.sh
+
+      - name: Wait for cron to fire a deploy
+        run: |
+          LOG=/var/log/nathan-website-deploy.log
+          BEFORE=$(grep -c "Deployment complete" "$LOG" 2>/dev/null || echo 0)
+          echo "completed deploys in the log before waiting: $BEFORE"
+          for _ in $(seq 1 40); do
+            AFTER=$(grep -c "Deployment complete" "$LOG" 2>/dev/null || echo 0)
+            if [ "$AFTER" -gt "$BEFORE" ]; then
+              echo "cron fired: deploy count went $BEFORE -> $AFTER"
+              break
+            fi
+            sleep 15
+          done
+          echo "--- tail of $LOG ---"
+          tail -n 30 "$LOG" || true
+          AFTER=$(grep -c "Deployment complete" "$LOG" 2>/dev/null || echo 0)
+          if [ "$AFTER" -le "$BEFORE" ]; then
+            echo "::error::cron did not fire within 10 minutes"
+            exit 1
+          fi
+
+      - name: Install the real schedule
+        run: /home/ubuntu/nathan-website/scripts/install-daily-deploy.sh
