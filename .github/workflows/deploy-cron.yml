@@ -1,0 +1,28 @@
+name: Install / refresh the VPS cron job
+
+# The daily Nostr pull runs from cron on the VPS, not from a GitHub schedule:
+# install it (or change its schedule or log path) by editing
+# scripts/install-daily-deploy.sh and dispatching this workflow. It runs on the
+# self-hosted runner, which is the machine whose git checkout, SSH keys and
+# passwordless sudo the cron job reuses.
+#
+# For a one-off test run of the cron path itself, dispatch with a custom
+# schedule: run this workflow with the input set, wait for a deploy to appear in
+# /var/log/nathan-website-deploy.log, then dispatch it again with the default.
+on:
+  workflow_dispatch:
+    inputs:
+      schedule:
+        description: "Cron schedule to install (default: the daily 06:17 UTC)"
+        required: false
+        default: "17 6 * * *"
+
+jobs:
+  install:
+    runs-on: [self-hosted, nathan-website]
+    timeout-minutes: 10
+    steps:
+      - name: Install the cron job
+        env:
+          SCHEDULE: ${{ inputs.schedule }}
+        run: /home/ubuntu/nathan-website/scripts/install-daily-deploy.sh
