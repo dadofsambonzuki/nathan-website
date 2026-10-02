@@ -1,0 +1,74 @@
+{{/*
+  Turn the raw nostr:npub1… / nostr:nprofile1… / nostr:nevent1… mentions that
+  come through the Nostr sync into links, labelled with the profile's name
+  when scripts/resolve_nostr_mentions.py has cached one in
+  data/nostr_profiles.json (site.Data.nostr_profiles).
+
+  Profiles link to nosta.me, events and addresses to jumble.social — the same
+  hosts the rest of the site uses. Mentions the resolver could not decode
+  (they get pasted truncated) are left as plain text rather than linked to a
+  dead page.
+
+  Call with the rendered content: {{ partial "nostr-mentions.html" .Content }}
+  Pass media=true (as a dict: {{ partial "nostr-mentions.html" (dict "content" .Content "media" true) }})
+  on the notes, where a bare image or video URL in the post should render
+  inline rather than as a link.
+*/}}
+
+{{- $content := "" -}}
+{{- $media := false -}}
+{{- if reflect.IsMap . -}}
+  {{- $content = .content | string -}}
+  {{- $media = .media | default false -}}
+{{- else -}}
+  {{- $content = . | string -}}
+{{- end -}}
+{{- $profiles := site.Data.nostr_profiles | default (dict) -}}
+{{- $pattern := `(?:npub|nprofile|note|nevent|naddr)1[023456789acdefghjklmnpqrstuvwxyz]{20,}` -}}
+
+{{/* Notes often carry media as a bare URL, which Hugo turns into a link;
+     show it instead. Matches the whole anchor so the href is not rewritten
+     into a second copy. */}}
+{{- if $media -}}
+  {{- $content = $content | replaceRE `<a href="?(https?://[^"<> ]+\.(?:jpg|jpeg|png|gif|webp))"?[^>]*>[^<]*</a>` `<img class="note-image" src="$1" alt="" loading="lazy">` -}}
+  {{- $content = $content | replaceRE `<a href="?(https?://[^"<> ]+\.(?:mp4|webm))"?[^>]*>[^<]*</a>` `<video class="note-video" src="$1" controls preload="metadata"></video>` -}}
+{{- end -}}
+
+{{/* Cloak the undecodable mentions so the link passes below skip them. */}}
+{{- $invalid := slice -}}
+{{- range $id, $entry := $profiles -}}
+  {{- if $entry.invalid -}}
+    {{- $invalid = $invalid | append $id -}}
+  {{- end -}}
+{{- end -}}
+{{- range $index, $id := $invalid -}}
+  {{- $cloak := printf "@@nostr%d@@" $index -}}
+  {{- $content = replace $content (printf "nostr:%s" $id) $cloak -}}
+  {{- $content = replace $content $id $cloak -}}
+{{- end -}}
+
+{{/* Profiles and events in separate passes: the bech32 charset excludes 1, b,
+     i and o, so one prefix can never appear inside the other's payload. */}}
+{{- $content = $content | replaceRE (printf `(?:nostr:)?((?:npub|nprofile)1[023456789acdefghjklmnpqrstuvwxyz]{20,})`) `<a class="nostr-mention" href="https://nosta.me/$1" target="_blank" rel="noopener" title="$1">$1</a>` -}}
+{{- $content = $content | replaceRE (printf `(?:nostr:)?((?:note|nevent|naddr)1[023456789acdefghjklmnpqrstuvwxyz]{20,})`) `<a class="nostr-mention" href="https://jumble.social/$1" target="_blank" rel="noopener" title="$1">$1</a>` -}}
+
+{{/* Swap each identifier for the resolved name, or a shortened form. The
+     link text is the only place the identifier stands between > and <, so
+     this cannot touch the href or the title attribute. */}}
+{{- range $id := findRE $pattern $content -}}
+  {{- $label := "" -}}
+  {{- with index $profiles $id -}}
+    {{- $label = or .display_name .name .nip05 "" -}}
+  {{- end -}}
+  {{- if not $label -}}
+    {{- $label = printf "%s…%s" (substr $id 0 10) (substr $id (sub (len $id) 4)) -}}
+  {{- end -}}
+  {{- $content = replace $content (printf ">%s<" $id) (printf ">%s<" ($label | htmlEscape)) -}}
+{{- end -}}
+
+{{/* Put the undecodable mentions back as plain text, without the prefix. */}}
+{{- range $index, $id := $invalid -}}
+  {{- $content = replace $content (printf "@@nostr%d@@" $index) $id -}}
+{{- end -}}
+
+{{- $content | safeHTML -}}
