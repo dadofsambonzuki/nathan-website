@@ -35,7 +35,7 @@
         {{ with .Params.featuredImage }}
           <img src="{{ . }}" alt="{{ $.Title }}" style="max-width: 50%; height: auto; margin: 2rem 0;"/>
         {{ end }}
-        {{ $.Content }}
+        {{ partial "nostr-mentions.html" $.Content }}
       </div>
       
       {{ if .Params.nostr_naddr }}

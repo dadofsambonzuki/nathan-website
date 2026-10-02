@@ -3,7 +3,7 @@
 {{ end }}
 {{ define "content" }}
   <section class="container post">
-    <article>
+    <article class="note">
       <header>
         <div class="post-meta">
           <div class="date">
@@ -18,13 +18,13 @@
         </div>
       </header>
 
-      <div class="post-content">
-        {{ .Content }}
+      <div class="note-body">
+        {{ partial "nostr-mentions.html" (dict "content" .Content "media" true) }}
       </div>
-      
-      {{ if .Params.nostr_nevent }}
-      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color, #e0e0e0);">
-        <a href="https://jumble.social/{{ .Params.nostr_nevent }}" target="_blank" rel="noopener">
+
+      {{ with .Params.nostr_nevent }}
+      <div class="note-source">
+        <a href="https://jumble.social/{{ . }}" target="_blank" rel="noopener">
           {{ `<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>` | safeHTML }} View on Nostr
         </a>
       </div>

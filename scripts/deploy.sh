@@ -12,6 +12,10 @@ echo ""
 
 git pull --rebase=false
 python3 scripts/fetch_nostr_events.py
+# Resolve the npub/nprofile mentions to profile names for the templates. A
+# relay failure must not block the deploy: the templates fall back to a
+# shortened identifier, so warn and carry on.
+python3 scripts/resolve_nostr_mentions.py --verbose || echo "Warning: Nostr mention resolution failed, keeping cached names"
 hugo --minify
 sudo rsync -av --delete public/ "$PROD_DIR/"
 

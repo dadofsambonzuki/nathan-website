@@ -1,0 +1,158 @@
+/* Notes (Nostr kind 1).
+   A note is a short, chatty post rather than an article, so the theme's
+   justified, hyphenated prose is turned off here and the whole thing reads
+   left-aligned on the same rhythm as the rest of the site. */
+
+:root {
+  --note-border: #e0e0e0;
+  --note-muted: #666;
+  --mention-bg: #f1e6f8;
+  --mention-fg: #662482;
+}
+
+body.colorscheme-dark {
+  --note-border: #424242;
+  --note-muted: #a0a0a0;
+  --mention-bg: rgba(102, 36, 130, 0.35);
+  --mention-fg: #d9b8f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto {
+    --note-border: #424242;
+    --note-muted: #a0a0a0;
+    --mention-bg: rgba(102, 36, 130, 0.35);
+    --mention-fg: #d9b8f0;
+  }
+}
+
+/* One note per card, separated by a hairline rather than an <hr>. */
+.note-list li {
+  margin-bottom: 0;
+  padding-bottom: 2.4rem;
+}
+
+.note-list li + li {
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--note-border);
+}
+
+.note-list li:last-child {
+  padding-bottom: 0;
+}
+
+.note .post-meta {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.note .post-meta .posted-on a {
+  color: var(--note-muted);
+  text-decoration: none;
+}
+
+.note .post-meta .posted-on a:hover,
+.note .post-meta .posted-on a:focus {
+  text-decoration: underline;
+}
+
+.note .note-body {
+  margin-top: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.note .note-body,
+.note .note-body p,
+.note .note-body li {
+  text-align: left;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+.note .note-body p:first-child {
+  margin-top: 0;
+}
+
+.note .note-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Link back to the source event on the note's own page. */
+.note .note-source {
+  margin-top: 1.6rem;
+  font-size: 1.5rem;
+}
+
+.note .note-source a {
+  color: var(--note-muted);
+  text-decoration: none;
+}
+
+.note .note-source a:hover,
+.note .note-source a:focus {
+  color: #662482;
+  text-decoration: underline;
+}
+
+/* Resolved Nostr mentions: a name instead of npub1…, linking out to the
+   profile or event, in the site's Nostr purple. The doubled classes are
+   needed to out-rank the theme's `body.colorscheme-dark a` link colour. */
+.note .nostr-mention,
+.post-content .nostr-mention {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.05em 0.6em;
+  border-radius: 0.6rem;
+  background-color: var(--mention-bg);
+  color: var(--mention-fg);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: baseline;
+}
+
+.note .nostr-mention:hover,
+.note .nostr-mention:focus,
+.post-content .nostr-mention:hover,
+.post-content .nostr-mention:focus {
+  background-color: #662482;
+  color: #fff;
+}
+
+/* The notes index is a reading list, so the date sits above the note rather
+   than in the list rows' date column. */
+.note-list .note-body p {
+  font-size: 1.8rem;
+  line-height: 1.6;
+}
+
+/* Bare media URLs in a note render as media rather than as links. */
+.note-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 0.6rem;
+}
+
+.note-video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 0.6rem;
+}
+
+/* On the index, media is a taster: cap the height so a 4MB photo does not
+   own the page. The note's own page shows it full size. */
+.note-list .note-image,
+.note-list .note-video {
+  max-height: 40rem;
+  width: auto;
+  object-fit: contain;
+}
