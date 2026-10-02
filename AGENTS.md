@@ -182,6 +182,11 @@ Content here...
 
 The website is hosted at `/var/www/nathan.day.ag` and deployed using `scripts/deploy.sh`.
 
+Deploys run on a self-hosted runner on the VPS (`.github/workflows/deploy.yml`) on three
+triggers: a push to `master`, a daily schedule at 06:17 UTC, and manual dispatch. The daily run
+is what keeps the Nostr notes and articles coming in when nothing is pushed; it runs the same
+script, so it also redeploys the site.
+
 ### Deploy Command
 
 Run the deploy script from the project root:
@@ -193,8 +198,9 @@ cd /home/ubuntu/nathan-website
 
 This script:
 1. Syncs new content from Nostr (notes and articles)
-2. Builds the Hugo site with `--minify`
-3. Rsyncs the `public/` directory to production
+2. Resolves the npub/nprofile mentions in that content to profile names (`data/nostr_profiles.json`)
+3. Builds the Hugo site with `--minify`
+4. Rsyncs the `public/` directory to production
 
 ### Manual Deployment Steps
 
