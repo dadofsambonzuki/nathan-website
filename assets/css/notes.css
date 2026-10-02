@@ -6,23 +6,23 @@
 :root {
   --note-border: #e0e0e0;
   --note-muted: #666;
-  --mention-bg: #f1e6f8;
-  --mention-fg: #662482;
+  --mention-rule: #b5b5b5;
+  --mention-hover: #662482;
 }
 
 body.colorscheme-dark {
   --note-border: #424242;
   --note-muted: #a0a0a0;
-  --mention-bg: rgba(102, 36, 130, 0.35);
-  --mention-fg: #d9b8f0;
+  --mention-rule: #6f6f6f;
+  --mention-hover: #d9b8f0;
 }
 
 @media (prefers-color-scheme: dark) {
   body.colorscheme-auto {
     --note-border: #424242;
     --note-muted: #a0a0a0;
-    --mention-bg: rgba(102, 36, 130, 0.35);
-    --mention-fg: #d9b8f0;
+    --mention-rule: #6f6f6f;
+    --mention-hover: #d9b8f0;
   }
 }
 
@@ -97,19 +97,22 @@ body.colorscheme-dark {
 }
 
 /* Resolved Nostr mentions: a name instead of npub1…, linking out to the
-   profile or event, in the site's Nostr purple. The doubled classes are
-   needed to out-rank the theme's `body.colorscheme-dark a` link colour. */
+   profile or event. Deliberately quiet — same colour and weight as the text
+   around it, just a dotted underline that firms up in Nostr purple on
+   hover. The doubled classes are needed to out-rank the theme's
+   `body.colorscheme-dark a` link colour. */
 .note .nostr-mention,
 .post-content .nostr-mention {
   display: inline-block;
   max-width: 100%;
-  padding: 0.05em 0.6em;
-  border-radius: 0.6rem;
-  background-color: var(--mention-bg);
-  color: var(--mention-fg);
-  font-weight: 600;
-  line-height: 1.4;
-  text-decoration: none;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--mention-rule);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -120,8 +123,8 @@ body.colorscheme-dark {
 .note .nostr-mention:focus,
 .post-content .nostr-mention:hover,
 .post-content .nostr-mention:focus {
-  background-color: #662482;
-  color: #fff;
+  color: var(--mention-hover);
+  text-decoration: underline solid;
 }
 
 /* The notes index is a reading list, so the date sits above the note rather
