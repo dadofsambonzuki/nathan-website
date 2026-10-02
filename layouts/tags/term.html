@@ -17,19 +17,21 @@
       {{ range $paginator.Pages }}
       <li>
         <div class="list-row">
-          <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
-          <span class="list-type">
-            {{- if eq .Type "podcasts" -}}
-              🎙️
-            {{- else if eq .Type "presentations" -}}
-              📊
-            {{- else if eq .Type "notes" -}}
-              💭
-            {{- else if eq .Type "articles" -}}
-              📄
-            {{- else if eq .Type "posts" -}}
-              📝
-            {{- end -}}
+          <span class="list-lead">
+            <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
+            <span class="list-type">
+              {{- if eq .Type "podcasts" -}}
+                🎙️
+              {{- else if eq .Type "presentations" -}}
+                📊
+              {{- else if eq .Type "notes" -}}
+                💭
+              {{- else if eq .Type "articles" -}}
+                📄
+              {{- else if eq .Type "posts" -}}
+                📝
+              {{- end -}}
+            </span>
           </span>
           <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
         </div>
