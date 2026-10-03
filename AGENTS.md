@@ -182,10 +182,14 @@ Content here...
 
 The website is hosted at `/var/www/nathan.day.ag` and deployed using `scripts/deploy.sh`.
 
-Deploys run on a self-hosted runner on the VPS (`.github/workflows/deploy.yml`) on three
-triggers: a push to `master`, a daily schedule at 06:17 UTC, and manual dispatch. The daily run
-is what keeps the Nostr notes and articles coming in when nothing is pushed; it runs the same
-script, so it also redeploys the site.
+Deploys run on a self-hosted runner on the VPS (`.github/workflows/deploy.yml`) on a push to
+`master` or a manual dispatch. The daily Nostr pull is **not** a GitHub schedule — it is a cron job
+on the VPS: `/etc/cron.d/nathan-website`, installed or refreshed by `scripts/install-daily-deploy.sh`
+or by dispatching the `Install / refresh the VPS cron job` workflow. GitHub's scheduler only fires
+on the default branch, lags under load, can drop runs and switches itself off after 60 days without
+repository activity, so it is the wrong tool for a content pull. The cron job runs the same
+`scripts/deploy.sh`, as the repository owner (behind `flock`, so it cannot collide with a
+push-triggered deploy), so it also redeploys the site.
 
 ### Deploy Command
 
@@ -213,12 +217,18 @@ git pull --rebase=false
 # 2. Sync Nostr content (optional - fetch_nostr_events.py also runs in deploy.sh)
 python3 scripts/fetch_nostr_events.py
 
-# 3. Build Hugo
+# 3. Resolve the npub/nprofile mentions to names for the templates
+python3 scripts/resolve_nostr_mentions.py
+
+# 4. Build Hugo
 hugo --minify
 
-# 4. Deploy to production
+# 5. Deploy to production
 sudo rsync -av --delete public/ /var/www/nathan.day.ag/
 ```
+
+The daily cron job writes its output to `/var/log/nathan-website-deploy.log`; check it when a
+scheduled run looks like it didn't happen.
 
 ### What Gets Deployed
 
